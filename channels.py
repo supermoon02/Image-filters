@@ -1,5 +1,4 @@
 import numpy as np
-import skimage
 from skimage import io,filters
 
 def get_rgb_channels(image):
@@ -19,10 +18,8 @@ def customize_channel(channel, values):
     customized = np.interp(flat,np.linspace(0, 1, len(values)), values)
     return customized.reshape(original_size)
 
+
 def sharper_image(image,a,b,sigma=10):
-    blurred  = filters.gaussian(image, sigma=sigma,multichannel=True)
-    sharper = np.clip(image*a - blurred*b,0,1.0)
+    blurred  = filters.gaussian(image, sigma=sigma, multichannel=True)
+    sharper = np.clip(image*a - blurred*b, 0, 1.0)
     return sharper
-
-
-

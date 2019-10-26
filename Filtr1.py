@@ -1,24 +1,18 @@
 import cv2
 import matplotlib.pyplot as plt
-from PIL import Image
 import numpy as np
+import skimage
+from skimage import io
+import Filters
 
 path = 'DSC_0257.JPG'
-image = cv2.imread(path)
+image_cv2 = cv2.imread(path)
+image = skimage.img_as_float(io.imread(path))
+original_im = plt.figure(1)
+original_im = plt.imshow(image)
 
 
-image_before = Image.open(path)
-image_before.show()
 
-
-def one(img):
-    gaussian_blur = cv2.GaussianBlur(image, (5, 5), cv2.BORDER_DEFAULT)
-    return plt.imshow(gaussian_blur)
-
-
-def edges(img):
-    detected_edges = cv2.Canny(image, 100, 300)
-    return plt.imshow(detected_edges)
 
 
 def vintage(img):
@@ -33,12 +27,13 @@ def vintage(img):
         vintage_img[:,:,i] = vintage_img[:,:,i]* filter
     return plt.imshow(vintage_img)
 
-
-f1 = plt.figure(1)
-f1 = one(image)
-f2 = plt.figure(2)
-f2 = edges(image)
-
-#f3 = plt.figure(3)
-#f3 = vintage(image)
+#f2 = plt.figure(2)
+#f2 = Filters.canny_edges(image_cv2)
+#f1 = plt.figure(3)
+#f1 = Filters.blur(image_cv2)
+f3 = plt.figure(3)
+f3 = vintage(image_cv2)
+#im_3 = plt.figure(4)
+#im_3 = plt.imshow(Filters.heather_filter(image))
 plt.show()
+
